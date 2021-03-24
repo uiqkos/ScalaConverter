@@ -2,7 +2,7 @@ package syntax.json
 
 import syntax.json.JsonValueSingleType.{JsonValueSingleType, TYPED, UNTYPED}
 import JsonTokenType._
-import JsonValueSingleType._
+import syntax.Syntax._
 
 class JsonValueSingle(value: String, valueType: JsonValueSingleType) extends JsonValue {
   override def toString: String =
@@ -15,11 +15,7 @@ object JsonValueSingle {
     if (tokens.head.tokenType == QUOTE)
       (new JsonValueSingle(
         tokens(1).value,
-        tokens(1).value.charAt(0) match {
-          case '@' => ATTRIBUTE
-          case '#' => ELEMENT
-          case _   => UNTYPED
-        }
+        UNTYPED
       ), tokens.drop(3))
     else (new JsonValueSingle(tokens.head.value, TYPED), tokens.drop(1))
   }

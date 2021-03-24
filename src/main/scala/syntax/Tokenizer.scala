@@ -1,5 +1,7 @@
 package syntax
 
+import Syntax._
+
 object Tokenizer {
   def tokenize(text: String, syntax: Syntax): List[Token] = {
     var token: Token = null;
