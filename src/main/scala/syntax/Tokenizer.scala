@@ -3,9 +3,9 @@ package syntax
 import Syntax._
 
 object Tokenizer {
-  def tokenize(text: String, syntax: Syntax): List[Token] = {
+  def tokenize[TToken <: Token, TObject <: Object, TValue <: Value](text: String, syntax: Syntax[TToken, TObject, TValue]): List[TToken] = {
     var token: Token = null;
-    var tokens: List[Token] = List();
+    var tokens: List[TToken] = List();
     var value: String = "";
 
     for (char <- text) {
@@ -17,7 +17,7 @@ object Tokenizer {
             tokens :+= syntax.parseTokenValue(value)
             value = ""
           }
-          tokens :+= token
+          tokens :+= token.asInstanceOf[TToken]
 
         } else {
           value += char
